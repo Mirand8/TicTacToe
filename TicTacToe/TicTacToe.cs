@@ -11,8 +11,8 @@ namespace TicTacToe
         public Board Board { get; set; }
         public Player Player1 { get; set; }
         public Player Player2 { get; set; }
-        public static int PlaysCount { get; set; }
-
+        public static int MovesCount { get; set; }
+        public static int RoundsCount { get; set; }
         public Player Turn { get; set; }
         private readonly static int _tie = -1;
         private readonly static int _win = 1;
@@ -22,7 +22,8 @@ namespace TicTacToe
         {
             Player1 = new Player(1);
             Player2 = new Player(2);
-            PlaysCount = 0;
+            MovesCount = 0;
+            RoundsCount = 0;
             Board = new Board();
             Player1.Letter = 'x';
             Player2.Letter = 'o';
@@ -32,14 +33,15 @@ namespace TicTacToe
         {
             do
             {
-                if (PlaysCount == 0)
+                if (MovesCount == 0)
                 {
                     Turn = Player1;
                     Show();
                 }
                 else
                 {
-                    Turn = PlaysCount % 2 == 0 ? Player1 : Player2;
+                    ShowScoreBoard();
+                    Turn = MovesCount % 2 == 0 ? Player1 : Player2;
                     UpdateBoard();
                 }
                 Console.Write($"Faca sua jogada, jogador {Turn.Id}: ");
@@ -58,13 +60,11 @@ namespace TicTacToe
                     move = int.Parse(Console.ReadLine());
                 }
                 Board.SetPosition(move, Turn.Letter);
-                ++PlaysCount;
+                ++MovesCount;
 
                 CheckWin();
                 CheckTie();
             } while (EndGame == 0);
-
-            UpdateBoard();
 
             if (EndGame == _win)
             {
@@ -76,22 +76,23 @@ namespace TicTacToe
             {
                 Console.WriteLine($"\nEMPATE! DESSA VEZ NINGUEM VENCEU =(");
             }
-
-            ShowScoreBoard();
+            ++RoundsCount;
+            Console.ReadKey();
+            UpdateBoard();
+            Console.ReadKey();
         }
 
         void ShowScoreBoard()
         {
-            Console.Clear();
+            Console.WriteLine("--==--==--==--==--==--==--==--==--==--==-");
             Console.WriteLine($"Jogador1 tem {Player1.WinCount} vitorias");
             Console.WriteLine($"Jogador2 tem {Player2.WinCount} vitorias");
-            Console.ReadKey();
-            Console.Clear();
+            Console.WriteLine("--==--==--==--==--==--==--==--==--==--==-");
         }
 
         public void ResetGame()
         {
-            PlaysCount = 0;
+            MovesCount = 0;
             Board = new Board();
             EndGame = 0;
         }
@@ -104,7 +105,7 @@ namespace TicTacToe
 
         void CheckTie()
         {
-            bool tie = PlaysCount > 8;
+            bool tie = MovesCount > 8;
 
             if (tie) EndGame = _tie;
         }
@@ -184,14 +185,29 @@ namespace TicTacToe
 
         public void Show()
         {
-            Console.WriteLine("\t-=-=-=-=-=-=-=-=-=-=-=-=-=-\n" +
+            if (RoundsCount == 0)
+            {
+                Console.WriteLine("\t-=-=-=-=-=-=-=-=-=-=-=-=-=-\n" +
                               "\t\tJOGO DA VELHA \n" +
                               "\t-=-=-=-=-=-=-=-=-=-=-=-=-=-\n" +
-                              "\t\tJOGADOR 1 = X\n" +
-                              "\t\tJOGADOR 2 = O\n" +
-                              "\t-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n" + 
+                              "\t\tJOGADOR1 = X\n" +
+                              "\t\tJOGADOR2 = O\n" +
+                              "\t-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n" +
                               "\tPara jogar, digite a posicao (de 1 a 9) que deseja posicionar sua jogada!\n"
                              );
+            }
+            else
+            {
+                Console.WriteLine("\t-=-=-=-=-=-=-=-=-=-=-=-=-=-\n" +
+                              "\t\tJOGO DA VELHA \n" +
+                              "\t-=-=-=-=-=-=-=-=-=-=-=-=-=-\n" +
+                              "\tPLACAR DE VITORIAS \n" +
+                              "\t\tJOGADOR1 = {0}\n" +
+                              "\t\tJOGADOR2 = {1}\n" +
+                              "\t-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n" +
+                              "\tPara jogar, digite a posicao (de 1 a 9) que deseja posicionar sua jogada!\n"
+                             , Player1.WinCount, Player2.WinCount);
+            }
             Board.Show();
         }
     }
