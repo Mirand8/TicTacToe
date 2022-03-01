@@ -44,9 +44,9 @@ namespace TicTacToe
                 }
                 Console.Write($"Faca sua jogada, jogador {Turn.Id}: ");
                 int move = int.Parse(Console.ReadLine());
-                while (!(Board.IsPositionEmpty(move) && move < 9 && move >= 0))
+                while (!(Board.IsPositionEmpty(move) && move < 10 && move >= 1))
                 {
-                    if (!(move < 9 && move >= 0))
+                    if (!(move < 10 && move >= 1))
                     {
                         Console.WriteLine("\n======= ATENCAO!! Esta posicao eh invalida!=======\n");
                     }
@@ -62,7 +62,6 @@ namespace TicTacToe
 
                 CheckWin();
                 CheckTie();
-
             } while (EndGame == 0);
 
             UpdateBoard();
@@ -77,14 +76,24 @@ namespace TicTacToe
             {
                 Console.WriteLine($"\nEMPATE! DESSA VEZ NINGUEM VENCEU =(");
             }
-            ResetGame();
-            Console.ReadKey();
+
+            ShowScoreBoard();
         }
 
-        void ResetGame()
+        void ShowScoreBoard()
+        {
+            Console.Clear();
+            Console.WriteLine($"Jogador1 tem {Player1.WinCount} vitorias");
+            Console.WriteLine($"Jogador2 tem {Player2.WinCount} vitorias");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        public void ResetGame()
         {
             PlaysCount = 0;
             Board = new Board();
+            EndGame = 0;
         }
 
         void UpdateBoard()

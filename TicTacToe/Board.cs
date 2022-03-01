@@ -23,15 +23,15 @@ namespace TicTacToe
         {
             return move switch
             {
-                0 => CurrentGame[0, 0],
-                1 => CurrentGame[0, 1],
-                2 => CurrentGame[0, 2],
-                3 => CurrentGame[1, 0],
-                4 => CurrentGame[1, 1],
-                5 => CurrentGame[1, 2],
-                6 => CurrentGame[2, 0],
-                7 => CurrentGame[2, 1],
-                8 => CurrentGame[2, 2],
+                1 => CurrentGame[0, 0],
+                2 => CurrentGame[0, 1],
+                3 => CurrentGame[0, 2],
+                4 => CurrentGame[1, 0],
+                5 => CurrentGame[1, 1],
+                6 => CurrentGame[1, 2],
+                7 => CurrentGame[2, 0],
+                8 => CurrentGame[2, 1],
+                9 => CurrentGame[2, 2],
                 _ => 'e',
             };
         }
@@ -40,23 +40,23 @@ namespace TicTacToe
         {
             switch (move)
             {
-                case 0: CurrentGame[0, 0] = letter; break;
+                case 1: CurrentGame[0, 0] = letter; break;
 
-                case 1: CurrentGame[0, 1] = letter; break;
+                case 2: CurrentGame[0, 1] = letter; break;
 
-                case 2: CurrentGame[0, 2] = letter; break;
+                case 3: CurrentGame[0, 2] = letter; break;
 
-                case 3: CurrentGame[1, 0] = letter; break;
+                case 4: CurrentGame[1, 0] = letter; break;
 
-                case 4: CurrentGame[1, 1] = letter; break;
+                case 5: CurrentGame[1, 1] = letter; break;
 
-                case 5: CurrentGame[1, 2] = letter; break;
+                case 6: CurrentGame[1, 2] = letter; break;
 
-                case 6: CurrentGame[2, 0] = letter; break;
+                case 7: CurrentGame[2, 0] = letter; break;
 
-                case 7: CurrentGame[2, 1] = letter; break;
+                case 8: CurrentGame[2, 1] = letter; break;
 
-                case 8: CurrentGame[2, 2] = letter; break;
+                case 9: CurrentGame[2, 2] = letter; break;
             }
         }
 
@@ -125,20 +125,20 @@ namespace TicTacToe
 
         public void Show()
         {
-            Console.WriteLine("\t\t{0}\t | \t{1}\t | \t{2}\n" +
+            Console.WriteLine("\t\t{0} : 1\t | \t{1} : 2\t | \t{2} : 3\n" +
                               "\t-----------------------------------------------\n" +
-                              "\t\t{3}\t | \t{4}\t | \t{5}\n" +
+                              "\t\t{3} : 4\t | \t{4} : 5\t | \t{5} : 6\n" +
                               "\t-----------------------------------------------\n" +
-                              "\t\t{6}\t | \t{7}\t | \t{8}\n",
-                           CurrentGame[0, 0],
-                           CurrentGame[0, 1],
-                           CurrentGame[0, 2],
-                           CurrentGame[1, 0],
-                           CurrentGame[1, 1],
-                           CurrentGame[1, 2],
-                           CurrentGame[2, 0],
-                           CurrentGame[2, 1],
-                           CurrentGame[2, 2]);
+                              "\t\t{6} : 7\t | \t{7} : 8\t | \t{8} : 9\n",
+                               CurrentGame[0, 0],
+                               CurrentGame[0, 1],
+                               CurrentGame[0, 2],
+                               CurrentGame[1, 0],
+                               CurrentGame[1, 1],
+                               CurrentGame[1, 2],
+                               CurrentGame[2, 0],
+                               CurrentGame[2, 1],
+                               CurrentGame[2, 2]);
         }
     }
 }
